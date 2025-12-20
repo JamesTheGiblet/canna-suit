@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CannaForge Ecosystem | Forge & Decay Framework</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --forge-color: #e74c3c;
+            --decay-color: #3498db;
+            --synergy-color: #9b59b6;
+            --therapeutic-color: #2ecc71;
+            --dark-bg: #0c0e1a;
+            --card-bg: rgba(22, 33, 62, 0.9);
+            --light-text: #ecf0f1;
+            --accent: #2ecc71;
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Particle Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(12, 14, 26, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(46, 204, 113, 0.2);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-link {
+            color: var(--light-text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+        
+        .nav-link:hover {
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--accent);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--accent);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 20px 50px;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--forge-color), var(--accent), var(--decay-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .badge-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+        
+        .badge {
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .badge:hover {
+            transform: translateY(-5px);
+        }
+        
+        .badge.forge {
+            background: linear-gradient(135deg, var(--forge-color), #c0392b);
+            color: white;
+        }
+        
+        .badge.decay {
+            background: linear-gradient(135deg, var(--decay-color), #2980b9);
+            color: white;
+        }
+        
+        .badge.synergy {
+            background: linear-gradient(135deg, var(--synergy-color), #8e44ad);
+            color: white;
+        }
+        
+        /* Ecosystem Section */
+        .ecosystem {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--accent);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--accent);
+        }
+        
+        .framework-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+        
+        .framework-card {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(12, 42, 77, 0.9) 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .framework-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(46, 204, 113, 0.2);
+        }
+        
+        .framework-header {
+            padding: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .framework-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .framework-title {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        .framework-description {
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .framework-link {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+        
+        .framework-link:hover {
+            background: #27ae60;
+            transform: scale(1.05);
+        }
+        
+        .framework-features {
+            padding: 25px;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-list i {
+            color: var(--accent);
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        /* Cycle Diagram */
+        .cycle-diagram {
+            background: linear-gradient(135deg, rgba(22, 33, 62, 0.8) 0%, rgba(12, 42, 77, 0.8) 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 60px 0;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(46, 204, 113, 0.3);
+        }
+        
+        .cycle-diagram::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--forge-color), var(--therapeutic-color), var(--decay-color));
+        }
+        
+        .cycle-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: var(--accent);
+        }
+        
+        .cycle-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .cycle-step {
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        
+        .step-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+        
+        .step-arrow {
+            font-size: 2rem;
+            color: var(--accent);
+            opacity: 0.7;
+        }
+        
+        /* Integration Section */
+        .integration {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .integration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .integration-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+        
+        .integration-card:hover {
+            background: rgba(46, 204, 113, 0.1);
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+        
+        .integration-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 100px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(22, 33, 62, 0.9) 0%, rgba(12, 42, 77, 0.9) 100%);
+            margin: 80px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .cta-button {
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .cta-button.primary {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .cta-button.primary:hover {
+            background: #27ae60;
+            transform: scale(1.05);
+        }
+        
+        .cta-button.secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+        
+        .cta-button.secondary:hover {
+            background: rgba(46, 204, 113, 0.1);
+            transform: scale(1.05);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 60px 20px 30px;
+            background: rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+        
+        .footer-link {
+            color: var(--light-text);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-link:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            margin-top: 30px;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(12, 14, 26, 0.98);
+                flex-direction: column;
+                padding: 20px;
+                border-top: 1px solid rgba(46, 204, 113, 0.2);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .framework-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cycle-steps {
+                flex-direction: column;
+            }
+            
+            .step-arrow {
+                transform: rotate(90deg);
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-cannabis"></i>
+                <span>CannaForge</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="#ecosystem" class="nav-link">Ecosystem</a>
+                <a href="#framework" class="nav-link">Framework</a>
+                <a href="#integration" class="nav-link">Integration</a>
+                <a href="#cta" class="nav-link">Get Started</a>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>CannaForge Ecosystem</h1>
+            <p class="hero-subtitle">Unified Forge & Decay Framework for Cannabis Cultivation & Medicinal Application</p>
+            
+            <div class="badge-container">
+                <div class="badge forge">
+                    <i class="fas fa-fire"></i>
+                    <span>Forge Theory</span>
+                </div>
+                <div class="badge decay">
+                    <i class="fas fa-leaf"></i>
+                    <span>Decay Model</span>
+                </div>
+                <div class="badge synergy">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>Complete Cycle</span>
+                </div>
+            </div>
+            
+            <p>A unified framework that connects cannabis cultivation (Forge/Decay) with medicinal application (Therapeutic Forge/Tolerance Decay). Two frameworks, one complete ecosystem.</p>
+            
+            <div class="cta-buttons" style="margin-top: 40px;">
+                <a href="#cta" class="cta-button primary">
+                    <i class="fas fa-rocket"></i>
+                    Explore Ecosystem
+                </a>
+                <a href="#framework" class="cta-button secondary">
+                    <i class="fas fa-book"></i>
+                    Learn Framework
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Ecosystem Overview -->
+    <section class="ecosystem" id="ecosystem">
+        <h2 class="section-title">The Complete Ecosystem</h2>
+        
+        <div class="framework-grid">
+            <!-- Cultivation Framework -->
+            <div class="framework-card">
+                <div class="framework-header">
+                    <div class="framework-icon" style="color: var(--forge-color);">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3 class="framework-title">CannaForge</h3>
+                    <p class="framework-description">
+                        Cannabis cultivation framework applying Forge Theory (structural building) and Decay Model (controlled senescence) to plant development.
+                    </p>
+                    <a href="https://jamesthegiblet.github.io/canna-forge/" target="_blank" class="framework-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        Open CannaForge
+                    </a>
+                </div>
+                
+                <div class="framework-features">
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Forge Phase: Vegetative growth & training</li>
+                        <li><i class="fas fa-check"></i> Decay Phase: Flowering & controlled senescence</li>
+                        <li><i class="fas fa-check"></i> Strain Matrix: Top 5 beginner-friendly strains</li>
+                        <li><i class="fas fa-check"></i> Interactive Checklists: Phase management tools</li>
+                        <li><i class="fas fa-check"></i> Mobile Optimized: Full responsive design</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Medicinal Framework -->
+            <div class="framework-card">
+                <div class="framework-header">
+                    <div class="framework-icon" style="color: var(--therapeutic-color);">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3 class="framework-title">Therapeutic Forge</h3>
+                    <p class="framework-description">
+                        Medicinal cannabis framework applying Forge Theory (therapeutic building) and Decay Model (tolerance management) to patient care.
+                    </p>
+                    <a href="https://jamesthegiblet.github.io/therapeutic-forge/" target="_blank" class="framework-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        Open Therapeutic Forge
+                    </a>
+                </div>
+                
+                <div class="framework-features">
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Therapeutic Forge: Effect building strategies</li>
+                        <li><i class="fas fa-check"></i> Tolerance Decay: Management protocols</li>
+                        <li><i class="fas fa-check"></i> Strain Matrix: Condition-specific strains</li>
+                        <li><i class="fas fa-check"></i> Tolerance Calculator: Personalized reset planning</li>
+                        <li><i class="fas fa-check"></i> Delivery Methods: Bioavailability optimization</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Complete Cycle Diagram -->
+    <section class="ecosystem" id="framework">
+        <div class="cycle-diagram">
+            <h2 class="cycle-title">The Complete Forge → Decay Cycle</h2>
+            
+            <div class="cycle-steps">
+                <div class="cycle-step">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Cultivation Forge</h3>
+                    <p>Structural building through light, training, and nutrients</p>
+                </div>
+                
+                <div class="step-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                
+                <div class="cycle-step">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Cultivation Decay</h3>
+                    <p>Controlled senescence during flowering phase</p>
+                </div>
+                
+                <div class="step-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                
+                <div class="cycle-step">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Therapeutic Forge</h3>
+                    <p>Building therapeutic effects through cannabinoid synergy</p>
+                </div>
+                
+                <div class="step-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                
+                <div class="cycle-step">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Tolerance Decay</h3>
+                    <p>Managing receptor adaptation and metabolic changes</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <p style="font-size: 1.2rem; opacity: 0.9;">
+                    <i class="fas fa-sync-alt" style="color: var(--accent);"></i>
+                    A continuous cycle from seed to medicine and back again
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Integration Benefits -->
+    <section class="integration" id="integration">
+        <h2 class="section-title">Framework Integration Benefits</h2>
+        
+        <div class="integration-grid">
+            <div class="integration-card">
+                <div class="integration-icon">
+                    <i class="fas fa-link"></i>
+                </div>
+                <h3>Unified Theory</h3>
+                <p>Same Forge/Decay principles applied across cultivation and medicinal use</p>
+            </div>
+            
+            <div class="integration-card">
+                <div class="integration-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Predictable Outcomes</h3>
+                <p>Understanding plant development informs therapeutic expectations</p>
+            </div>
+            
+            <div class="integration-card">
+                <div class="integration-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <h3>System Optimization</h3>
+                <p>Optimize cultivation for specific therapeutic outcomes</p>
+            </div>
+            
+            <div class="integration-card">
+                <div class="integration-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3>Knowledge Transfer</h3>
+                <p>Insights from cultivation inform medicinal application and vice versa</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta" id="cta">
+        <h2>Start Your Forge & Decay Journey</h2>
+        <p>Explore both frameworks to understand the complete cannabis lifecycle from cultivation to therapeutic application.</p>
+        
+        <div class="cta-buttons">
+            <a href="https://jamesthegiblet.github.io/canna-forge/" target="_blank" class="cta-button primary">
+                <i class="fas fa-seedling"></i>
+                Open CannaForge (Cultivation)
+            </a>
+            <a href="https://jamesthegiblet.github.io/therapeutic-forge/" target="_blank" class="cta-button primary">
+                <i class="fas fa-heartbeat"></i>
+                Open Therapeutic Forge (Medicinal)
+            </a>
+        </div>
+        
+        <div style="margin-top: 40px;">
+            <a href="#ecosystem" class="cta-button secondary">
+                <i class="fas fa-graduation-cap"></i>
+                Learn Framework First
+            </a>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="logo" style="justify-content: center; margin-bottom: 20px;">
+            <i class="fas fa-cannabis"></i>
+            <span>CannaForge Ecosystem</span>
+        </div>
+        
+        <div class="footer-links">
+            <a href="https://jamesthegiblet.github.io/canna-forge/" target="_blank" class="footer-link">CannaForge</a>
+            <a href="https://jamesthegiblet.github.io/therapeutic-forge/" target="_blank" class="footer-link">Therapeutic Forge</a>
+            <a href="#ecosystem" class="footer-link">Ecosystem</a>
+            <a href="#framework" class="footer-link">Framework</a>
+        </div>
+        
+        <p class="copyright">
+            © 2023 CannaForge Ecosystem | Forge & Decay Framework<br>
+            Educational framework for cannabis cultivation and medicinal application
+        </p>
+        
+        <p style="margin-top: 20px; opacity: 0.7; font-size: 0.8rem;">
+            <i class="fas fa-exclamation-triangle"></i> For educational purposes only. Always comply with local laws and regulations.
+        </p>
+    </footer>
+    
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                }
+            });
+        });
+        
+        // Particle.js Background
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load particles.js from CDN
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js';
+            document.head.appendChild(script);
+            
+            script.onload = function() {
+                particlesJS('particles-js', {
+                    particles: {
+                        number: {
+                            value: 80,
+                            density: {
+                                enable: true,
+                                value_area: 800
+                            }
+                        },
+                        color: {
+                            value: ['#2ecc71', '#3498db', '#e74c3c']
+                        },
+                        shape: {
+                            type: 'circle',
+                            stroke: {
+                                width: 0,
+                                color: '#000000'
+                            }
+                        },
+                        opacity: {
+                            value: 0.3,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 1,
+                                opacity_min: 0.1,
+                                sync: false
+                            }
+                        },
+                        size: {
+                            value: 3,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 2,
+                                size_min: 0.1,
+                                sync: false
+                            }
+                        },
+                        line_linked: {
+                            enable: true,
+                            distance: 150,
+                            color: '#2ecc71',
+                            opacity: 0.2,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 1,
+                            direction: 'none',
+                            random: true,
+                            straight: false,
+                            out_mode: 'out',
+                            bounce: false,
+                            attract: {
+                                enable: false,
+                                rotateX: 600,
+                                rotateY: 1200
+                            }
+                        }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: {
+                            onhover: {
+                                enable: true,
+                                mode: 'grab'
+                            },
+                            onclick: {
+                                enable: true,
+                                mode: 'push'
+                            },
+                            resize: true
+                        },
+                        modes: {
+                            grab: {
+                                distance: 140,
+                                line_linked: {
+                                    opacity: 0.5
+                                }
+                            },
+                            push: {
+                                particles_nb: 4
+                            }
+                        }
+                    },
+                    retina_detect: true
+                });
+            };
+            
+            // Framework card animations on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe framework cards
+            document.querySelectorAll('.framework-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.6s ease';
+                observer.observe(card);
+            });
+            
+            // Observe integration cards
+            document.querySelectorAll('.integration-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.6s ease 0.2s';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
