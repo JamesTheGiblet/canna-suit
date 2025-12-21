@@ -18,6 +18,7 @@
             --synergy-color: #9b59b6;
             --therapeutic-color: #2ecc71;
             --terp-color: #f39c12;
+            --knowledge-color: #1abc9c;
             --dark-bg: #0c0e1a;
             --card-bg: rgba(22, 33, 62, 0.9);
             --light-text: #ecf0f1;
@@ -42,15 +43,39 @@
             z-index: -1;
         }
         
+        /* Loader */
+        .loader {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--accent);
+            font-size: 4rem;
+            animation: spin 2s linear infinite;
+            z-index: 2000;
+        }
+        
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
         /* Navigation */
         .navbar {
             position: fixed;
             top: 0;
             width: 100%;
+            background: transparent;
+            padding: 20px 0;
+            z-index: 1000;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
             background: rgba(12, 14, 26, 0.95);
             backdrop-filter: blur(10px);
             padding: 15px 0;
-            z-index: 1000;
             border-bottom: 1px solid rgba(46, 204, 113, 0.2);
         }
         
@@ -113,6 +138,7 @@
             text-align: center;
             padding: 100px 20px 50px;
             position: relative;
+            overflow: hidden;
         }
         
         .hero-content {
@@ -171,6 +197,11 @@
         
         .badge.synergy {
             background: linear-gradient(135deg, var(--synergy-color), #8e44ad);
+            color: white;
+        }
+        
+        .badge.knowledge {
+            background: linear-gradient(135deg, var(--knowledge-color), #16a085);
             color: white;
         }
         
@@ -291,6 +322,28 @@
             border: 1px solid rgba(46, 204, 113, 0.3);
         }
         
+        @keyframes pulse-glow {
+            0% {
+                box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(46, 204, 113, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(46, 204, 113, 0);
+            }
+        }
+        
+        @keyframes arrow-pulse {
+            0%, 100% { opacity: 0.5; transform: translateX(0); }
+            50% { opacity: 1; transform: translateX(10px); }
+        }
+        
+        @keyframes arrow-pulse-mobile {
+            0%, 100% { opacity: 0.5; transform: rotate(90deg) translateX(0); }
+            50% { opacity: 1; transform: rotate(90deg) translateX(10px); }
+        }
+        
         .cycle-diagram::before {
             content: '';
             position: absolute;
@@ -298,7 +351,7 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: linear-gradient(90deg, var(--forge-color), var(--therapeutic-color), var(--decay-color));
+            background: linear-gradient(90deg, var(--forge-color), var(--therapeutic-color), var(--decay-color), var(--knowledge-color));
         }
         
         .cycle-title {
@@ -333,6 +386,7 @@
             font-size: 1.5rem;
             font-weight: bold;
             margin: 0 auto 20px;
+            animation: pulse-glow 2s infinite;
         }
         
         .step-title {
@@ -345,7 +399,13 @@
             font-size: 2rem;
             color: var(--accent);
             opacity: 0.7;
+            animation: arrow-pulse 2s infinite ease-in-out;
         }
+        
+        .step-arrow:nth-child(2) { animation-delay: 0s; }
+        .step-arrow:nth-child(4) { animation-delay: 0.5s; }
+        .step-arrow:nth-child(6) { animation-delay: 1s; }
+        .step-arrow:nth-child(8) { animation-delay: 1.5s; }
         
         /* Integration Section */
         .integration {
@@ -512,7 +572,7 @@
             }
             
             .step-arrow {
-                transform: rotate(90deg);
+                animation-name: arrow-pulse-mobile;
             }
             
             .cta-buttons {
@@ -525,6 +585,9 @@
 <body>
     <!-- Particles Background -->
     <div id="particles-js"></div>
+    <div id="particles-loader" class="loader">
+        <i class="fas fa-cannabis"></i>
+    </div>
     
     <!-- Navigation -->
     <nav class="navbar">
@@ -565,6 +628,10 @@
                 <div class="badge synergy">
                     <i class="fas fa-sync-alt"></i>
                     <span>Complete Cycle</span>
+                </div>
+                <div class="badge knowledge">
+                    <i class="fas fa-brain"></i>
+                    <span>Knowledge Base</span>
                 </div>
             </div>
             
@@ -668,6 +735,33 @@
                     </ul>
                 </div>
             </div>
+            
+            <!-- Knowledge Framework -->
+            <div class="framework-card">
+                <div class="framework-header">
+                    <div class="framework-icon" style="color: var(--knowledge-color);">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="framework-title">CannaKnow</h3>
+                    <p class="framework-description">
+                        Centralized knowledge base covering cannabis science, terminology, history, and legal frameworks.
+                    </p>
+                    <a href="https://jamesthegiblet.github.io/canna-know/#" target="_blank" class="framework-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        Open CannaKnow
+                    </a>
+                </div>
+                
+                <div class="framework-features">
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Terminology: Comprehensive glossary</li>
+                        <li><i class="fas fa-check"></i> Science: Cannabinoids & Terpenes</li>
+                        <li><i class="fas fa-check"></i> History: Evolution of cultivation</li>
+                        <li><i class="fas fa-check"></i> Research: Latest studies</li>
+                        <li><i class="fas fa-check"></i> Resources: Educational guides</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </section>
     
@@ -711,6 +805,16 @@
                     <div class="step-number">4</div>
                     <h3 class="step-title">Tolerance Decay</h3>
                     <p>Managing receptor adaptation and metabolic changes</p>
+                </div>
+                
+                <div class="step-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                
+                <div class="cycle-step">
+                    <div class="step-number">5</div>
+                    <h3 class="step-title">CannaKnow</h3>
+                    <p>Synthesizing experience and data to refine future cycles</p>
                 </div>
             </div>
             
@@ -780,6 +884,10 @@
                 <i class="fas fa-flask"></i>
                 Open Terp Forge (Terpenes)
             </a>
+            <a href="https://jamesthegiblet.github.io/canna-know/#" target="_blank" class="cta-button primary">
+                <i class="fas fa-brain"></i>
+                Open CannaKnow (Knowledge)
+            </a>
         </div>
         
         <div style="margin-top: 40px;">
@@ -801,6 +909,7 @@
             <a href="https://jamesthegiblet.github.io/canna-forge/" target="_blank" class="footer-link">CannaForge</a>
             <a href="https://jamesthegiblet.github.io/therapeutic-forge/" target="_blank" class="footer-link">Therapeutic Forge</a>
             <a href="https://jamesthegiblet.github.io/terp-forge/" target="_blank" class="footer-link">Terp Forge</a>
+            <a href="https://jamesthegiblet.github.io/canna-know/#" target="_blank" class="footer-link">CannaKnow</a>
             <a href="#ecosystem" class="footer-link">Ecosystem</a>
             <a href="#framework" class="footer-link">Framework</a>
         </div>
@@ -827,6 +936,26 @@
                 : '<i class="fas fa-bars"></i>';
         });
         
+        // Close mobile menu when any nav link is clicked
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (navLinks.classList.contains('active') && 
+                !navLinks.contains(e.target) && 
+                !mobileMenuBtn.contains(e.target)) {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+        
         // Smooth Scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
@@ -841,12 +970,6 @@
                         top: targetElement.offsetTop - 80,
                         behavior: 'smooth'
                     });
-                    
-                    // Close mobile menu if open
-                    if (navLinks.classList.contains('active')) {
-                        navLinks.classList.remove('active');
-                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                    }
                 }
             });
         });
@@ -859,6 +982,11 @@
             document.head.appendChild(script);
             
             script.onload = function() {
+                const loader = document.getElementById('particles-loader');
+                if (loader) {
+                    loader.style.display = 'none';
+                }
+                
                 particlesJS('particles-js', {
                     particles: {
                         number: {
@@ -869,7 +997,7 @@
                             }
                         },
                         color: {
-                            value: ['#2ecc71', '#3498db', '#e74c3c']
+                            value: ['#e74c3c', '#3498db', '#2ecc71', '#9b59b6', '#f39c12', '#1abc9c']
                         },
                         shape: {
                             type: 'circle',
@@ -921,7 +1049,7 @@
                         }
                     },
                     interactivity: {
-                        detect_on: 'canvas',
+                        detect_on: 'window',
                         events: {
                             onhover: {
                                 enable: true,
@@ -979,6 +1107,34 @@
                 card.style.transition = 'all 0.6s ease 0.2s';
                 observer.observe(card);
             });
+            
+            // Hero Parallax Effect
+            const handleParallax = () => {
+                const scrolled = window.pageYOffset;
+                const heroContent = document.querySelector('.hero-content');
+                
+                if (heroContent && scrolled < window.innerHeight) {
+                    heroContent.style.transform = 'translateY(' + (scrolled * 0.5) + 'px)';
+                    heroContent.style.opacity = 1 - (scrolled / 700);
+                }
+            };
+            
+            window.addEventListener('scroll', handleParallax);
+            handleParallax(); // Initialize on load
+            
+            // Navbar Scroll Effect
+            const navbar = document.querySelector('.navbar');
+            
+            const handleNavScroll = () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            };
+            
+            window.addEventListener('scroll', handleNavScroll);
+            handleNavScroll(); // Initialize on load
         });
     </script>
 </body>
