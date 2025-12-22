@@ -43,6 +43,7 @@
             color: rgba(236, 240, 241, 0.18);
             pointer-events: none;
             z-index: 0;
+            -webkit-user-select: none;
             user-select: none;
             animation: float-symbols linear infinite;
         }
@@ -102,6 +103,7 @@
         
         .navbar.scrolled {
             background: rgba(12, 14, 26, 0.95);
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
             padding: 15px 0;
             border-bottom: 1px solid rgba(46, 204, 113, 0.2);
@@ -289,6 +291,9 @@
         .framework-icon {
             font-size: 3rem;
             margin-bottom: 20px;
+        }
+        .framework-icon.forge-color {
+            color: var(--forge-color);
         }
         
         .framework-title {
@@ -780,14 +785,14 @@
             <!-- Cultivation Framework -->
             <div class="framework-card">
                 <div class="framework-header">
-                    <div class="framework-icon" style="color: var(--forge-color);">
+                    <div class="framework-icon forge-color">
                         <i class="fas fa-seedling"></i>
                     </div>
                     <h3 class="framework-title">CannaForge</h3>
                     <p class="framework-description">
                         Cannabis cultivation framework applying Forge Theory (structural building) and Decay Model (controlled senescence) to plant development.
                     </p>
-                    <a href="https://jamesthegiblet.github.io/canna-forge/" target="_blank" class="framework-link">
+                    <a href="https://jamesthegiblet.github.io/canna-forge/" target="_blank" rel="noopener" class="framework-link">
                         <i class="fas fa-external-link-alt"></i>
                         Open CannaForge
                     </a>
@@ -814,7 +819,7 @@
                     <p class="framework-description">
                         Medicinal cannabis framework applying Forge Theory (therapeutic building) and Decay Model (tolerance management) to patient care.
                     </p>
-                    <a href="https://jamesthegiblet.github.io/therapeutic-forge/" target="_blank" class="framework-link">
+                    <a href="https://jamesthegiblet.github.io/therapeutic-forge/" target="_blank" rel="noopener" class="framework-link">
                         <i class="fas fa-external-link-alt"></i>
                         Open Therapeutic Forge
                     </a>
@@ -841,7 +846,7 @@
                     <p class="framework-description">
                         Terpene profile management framework applying Forge Theory to flavor development and entourage effect optimization.
                     </p>
-                    <a href="https://jamesthegiblet.github.io/terp-forge/" target="_blank" class="framework-link">
+                    <a href="https://jamesthegiblet.github.io/terp-forge/" target="_blank" rel="noopener" class="framework-link">
                         <i class="fas fa-external-link-alt"></i>
                         Open Terp Forge
                     </a>
@@ -868,7 +873,7 @@
                     <p class="framework-description">
                         Centralized knowledge base covering cannabis science, terminology, history, and legal frameworks.
                     </p>
-                    <a href="https://jamesthegiblet.github.io/canna-know/#" target="_blank" class="framework-link">
+                    <a href="https://jamesthegiblet.github.io/canna-know/#" target="_blank" rel="noopener" class="framework-link">
                         <i class="fas fa-external-link-alt"></i>
                         Open CannaKnow
                     </a>
@@ -994,19 +999,19 @@
         <p>Explore both frameworks to understand the complete cannabis lifecycle from cultivation to therapeutic application.</p>
         
         <div class="cta-buttons">
-            <a href="https://jamesthegiblet.github.io/canna-forge/" target="_blank" class="cta-button primary">
+            <a href="https://jamesthegiblet.github.io/canna-forge/" target="_blank" rel="noopener" class="cta-button primary">
                 <i class="fas fa-seedling"></i>
                 Open CannaForge (Cultivation)
             </a>
-            <a href="https://jamesthegiblet.github.io/therapeutic-forge/" target="_blank" class="cta-button primary">
+            <a href="https://jamesthegiblet.github.io/therapeutic-forge/" target="_blank" rel="noopener" class="cta-button primary">
                 <i class="fas fa-heartbeat"></i>
                 Open Therapeutic Forge (Medicinal)
             </a>
-            <a href="https://jamesthegiblet.github.io/terp-forge/" target="_blank" class="cta-button primary">
+            <a href="https://jamesthegiblet.github.io/terp-forge/" target="_blank" rel="noopener" class="cta-button primary">
                 <i class="fas fa-flask"></i>
                 Open Terp Forge (Terpenes)
             </a>
-            <a href="https://jamesthegiblet.github.io/canna-know/#" target="_blank" class="cta-button primary">
+            <a href="https://jamesthegiblet.github.io/canna-know/#" target="_blank" rel="noopener" class="cta-button primary">
                 <i class="fas fa-brain"></i>
                 Open CannaKnow (Knowledge)
             </a>
@@ -1028,16 +1033,16 @@
         </div>
         
         <div class="footer-links">
-            <a href="https://jamesthegiblet.github.io/canna-forge/" target="_blank" class="footer-link">CannaForge</a>
-            <a href="https://jamesthegiblet.github.io/therapeutic-forge/" target="_blank" class="footer-link">Therapeutic Forge</a>
-            <a href="https://jamesthegiblet.github.io/terp-forge/" target="_blank" class="footer-link">Terp Forge</a>
-            <a href="https://jamesthegiblet.github.io/canna-know/#" target="_blank" class="footer-link">CannaKnow</a>
+            <a href="https://jamesthegiblet.github.io/canna-forge/" target="_blank" rel="noopener" class="footer-link">CannaForge</a>
+            <a href="https://jamesthegiblet.github.io/therapeutic-forge/" target="_blank" rel="noopener" class="footer-link">Therapeutic Forge</a>
+            <a href="https://jamesthegiblet.github.io/terp-forge/" target="_blank" rel="noopener" class="footer-link">Terp Forge</a>
+            <a href="https://jamesthegiblet.github.io/canna-know/#" target="_blank" rel="noopener" class="footer-link">CannaKnow</a>
             <a href="#ecosystem" class="footer-link">Ecosystem</a>
             <a href="#framework" class="footer-link">Framework</a>
         </div>
         
         <p class="copyright">
-            © 2023 CannaForge Ecosystem | Forge & Decay Framework<br>
+            © 2025 CannaForge Ecosystem | Forge & Decay Framework<br>
             Educational framework for cannabis cultivation and medicinal application
         </p>
         
