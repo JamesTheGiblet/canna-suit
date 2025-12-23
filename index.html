@@ -661,7 +661,398 @@
             opacity: 0.7;
             font-size: 0.9rem;
         }
+
+        /* Cannabis Types Section */
+        .cannabis-types {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .type-card {
+            background: rgba(22, 33, 62, 0.6);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            -webkit-backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            cursor: pointer;
+        }
+
+        .type-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            background: rgba(22, 33, 62, 0.8);
+        }
+
+        .leaf-visual {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            transition: transform 0.5s ease;
+            display: inline-block;
+        }
+
+        .leaf-visual i {
+            display: inline-block;
+            animation: float-leaf 6s ease-in-out infinite;
+        }
+
+        @keyframes float-leaf {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .type-card.indica .leaf-visual i { animation-delay: 1.5s; }
+        .type-card.hybrid .leaf-visual i { animation-delay: 3s; }
+        .type-card.ruderalis .leaf-visual i { animation-delay: 4.5s; }
+
+        .type-card:hover .leaf-visual {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        .type-card.sativa .leaf-visual { color: #f1c40f; transform: scale(0.85, 1.2); }
+        .type-card.sativa:hover .leaf-visual { transform: rotate(15deg) scale(0.95, 1.3); }
         
+        .type-card.indica .leaf-visual { color: #9b59b6; transform: scale(1.2, 0.9); }
+        .type-card.indica:hover .leaf-visual { transform: rotate(15deg) scale(1.3, 1.0); }
+        
+        .type-card.hybrid .leaf-visual { color: #2ecc71; }
+        
+        .type-card.ruderalis .leaf-visual { color: #e67e22; font-size: 3rem; }
+        
+        .type-card h3 { margin-bottom: 10px; color: var(--light-text); }
+        .type-card p { font-size: 0.9rem; opacity: 0.8; }
+        
+        /* --- Consolidated Styles for Modal Content --- */
+        /* These styles support the content injected from manifest.js */
+        
+        .modal-content-wrapper {
+            padding: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            color: var(--text-color, #333);
+            background: #f8f9fa; /* Light background for readability inside modal */
+            overflow-y: auto;
+        }
+
+        .modal-header-dynamic {
+            background: var(--modal-gradient, linear-gradient(135deg, #333, #555));
+            color: white;
+            padding: 20px;
+            border-radius: 15px 15px 0 0;
+            margin: -20px -20px 20px -20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .modal-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .modal-tab-btn {
+            background: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--modal-primary, #333);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .modal-tab-btn.active, .modal-tab-btn:hover {
+            background: var(--modal-primary, #333);
+            color: white;
+        }
+
+        /* Shared Components from Sub-files */
+        .chamber-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.2rem;
+            margin-bottom: 1.2rem;
+            border-left: 4px solid var(--modal-secondary, #ccc);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            color: #333;
+        }
+        .chamber-title { display: flex; align-items: center; gap: 10px; color: var(--modal-primary); font-weight: 600; margin-bottom: 0.8rem; }
+        
+        .highlight {
+            background: linear-gradient(to right, #e8f4ff, #f0f8ff);
+            border-left: 4px solid var(--modal-secondary);
+            padding: 1rem;
+            margin: 1.2rem 0;
+            border-radius: 0 8px 8px 0;
+            color: #333;
+        }
+
+        .data-viz { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1.5rem 0; }
+        .data-item { flex: 1; min-width: 200px; background: white; border-radius: 10px; padding: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); color: #333; }
+        .data-label { display: flex; justify-content: space-between; font-weight: 600; color: var(--modal-primary); margin-bottom: 0.5rem; }
+        .data-bar { height: 10px; background: #e0e0e0; border-radius: 5px; overflow: hidden; }
+        .data-fill { height: 100%; background: var(--modal-secondary); border-radius: 5px; }
+
+        /* Timeline (Ruderalis) */
+        .timeline { margin: 1.5rem 0; position: relative; padding-left: 20px; border-left: 3px solid var(--modal-secondary); }
+        .timeline-item { margin-bottom: 1.5rem; position: relative; }
+        .timeline-marker { position: absolute; left: -34px; width: 30px; height: 30px; border-radius: 50%; background: var(--modal-primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        .timeline-content { background: white; padding: 1rem; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); color: #333; }
+
+        /* Slider (Hybrid) */
+        .slider-container { background: white; padding: 1.5rem; border-radius: 10px; margin: 1.5rem 0; color: #333; }
+        .slider-label { display: flex; justify-content: space-between; margin-bottom: 1rem; font-weight: 600; }
+        .slider { width: 100%; height: 10px; -webkit-appearance: none; appearance: none; background: #ddd; border-radius: 5px; outline: none; }
+        .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 25px; height: 25px; border-radius: 50%; background: var(--modal-primary); cursor: pointer; }
+        .hybrid-ratio { display: flex; height: 30px; border-radius: 15px; overflow: hidden; margin-top: 15px; color: white; font-size: 0.8rem; font-weight: bold; line-height: 30px; text-align: center; }
+        .indica-portion { background: #2d5016; transition: width 0.3s; }
+        .sativa-portion { background: #5d8aa8; transition: width 0.3s; }
+
+        /* Tables */
+        .comparison-table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; color: #333; }
+        .comparison-table th { background: var(--modal-primary); color: white; padding: 10px; text-align: left; }
+        .comparison-table td { padding: 10px; border-bottom: 1px solid #eee; }
+        .strain-type { padding: 2px 8px; border-radius: 10px; color: white; font-size: 0.8rem; }
+        .indica-type { background: #2d5016; }
+        .sativa-type { background: #5d8aa8; }
+        .hybrid-type { background: #8a4fff; }
+
+        .autoflower-viz { text-align: center; padding: 20px; background: white; border-radius: 10px; margin: 20px 0; color: #333; }
+        .clock-icon { font-size: 3rem; color: var(--modal-primary); margin-bottom: 10px; }
+        /* ------------------------------------------- */
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 3000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-container {
+            width: 90%;
+            max-width: 1000px;
+            height: 85vh;
+            background: var(--dark-bg);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--accent);
+            box-shadow: 0 0 50px rgba(46, 204, 113, 0.2);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: var(--forge-color);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Recommendation Tool */
+        .recommendation-tool {
+            padding: 80px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .effects-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .effect-btn {
+            background: transparent;
+            border: 2px solid rgba(46, 204, 113, 0.3);
+            color: var(--light-text);
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .effect-btn:hover {
+            border-color: var(--accent);
+            background: rgba(46, 204, 113, 0.1);
+        }
+
+        .effect-btn.selected {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            box-shadow: 0 0 15px rgba(46, 204, 113, 0.4);
+        }
+
+        .recommendation-result {
+            margin-top: 40px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(22, 33, 62, 0.9) 0%, rgba(12, 42, 77, 0.9) 100%);
+            border-radius: 20px;
+            border: 1px solid var(--accent);
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Terpene Wheel Section */
+        .terpene-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .terpene-wrapper {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .terpene-center {
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            background: rgba(12, 14, 26, 0.95);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            border: 2px solid var(--accent);
+            z-index: 10;
+            box-shadow: 0 0 30px rgba(46, 204, 113, 0.2);
+            transition: border-color 0.3s;
+        }
+
+        .terpene-item {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 90px;
+            height: 90px;
+            margin-left: -45px;
+            margin-top: -45px;
+            border-radius: 50%;
+            background: rgba(22, 33, 62, 0.9);
+            border: 2px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: rotate(calc(360deg / var(--total) * var(--i))) translate(190px) rotate(calc(-360deg / var(--total) * var(--i)));
+            z-index: 5;
+        }
+
+        .terpene-item:hover, .terpene-item.active {
+            transform: rotate(calc(360deg / var(--total) * var(--i))) translate(205px) rotate(calc(-360deg / var(--total) * var(--i))) scale(1.15);
+            z-index: 20;
+            box-shadow: 0 0 20px currentColor;
+        }
+
+        @media (max-width: 768px) {
+            .terpene-wrapper {
+                width: 300px;
+                height: 300px;
+            }
+            .terpene-center {
+                width: 140px;
+                height: 140px;
+            }
+            .terpene-item {
+                width: 60px;
+                height: 60px;
+                margin-left: -30px;
+                margin-top: -30px;
+                font-size: 0.8rem;
+                transform: rotate(calc(360deg / var(--total) * var(--i))) translate(110px) rotate(calc(-360deg / var(--total) * var(--i)));
+            }
+            .terpene-item:hover, .terpene-item.active {
+                transform: rotate(calc(360deg / var(--total) * var(--i))) translate(120px) rotate(calc(-360deg / var(--total) * var(--i))) scale(1.1);
+            }
+            .terp-label { display: none; }
+        }
+
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .nav-links {
@@ -954,6 +1345,141 @@
         </div>
     </section>
     
+    <!-- Cannabis Types -->
+    <section class="cannabis-types">
+        <h2 class="section-title">The Cannabis Spectrum</h2>
+        <div class="types-grid">
+            <div class="type-card sativa" data-type="sativa">
+                <div class="leaf-visual">
+                    <i class="fas fa-cannabis"></i>
+                </div>
+                <h3>Sativa</h3>
+                <p>Tall structure with narrow leaves. Historically associated with energizing, cerebral effects suitable for daytime use.</p>
+            </div>
+            
+            <div class="type-card indica" data-type="indica">
+                <div class="leaf-visual">
+                    <i class="fas fa-cannabis"></i>
+                </div>
+                <h3>Indica</h3>
+                <p>Short, bushy structure with broad leaves. Traditionally linked to relaxing, sedative physical effects for evening use.</p>
+            </div>
+            
+            <div class="type-card hybrid" data-type="hybrid">
+                <div class="leaf-visual">
+                    <i class="fas fa-cannabis"></i>
+                </div>
+                <h3>Hybrid</h3>
+                <p>Genetic cross exhibiting a balance of traits. Can be Sativa-dominant, Indica-dominant, or a balanced 50/50 mix.</p>
+            </div>
+            
+            <div class="type-card ruderalis" data-type="ruderalis">
+                <div class="leaf-visual">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h3>Ruderalis</h3>
+                <p>Hardy, auto-flowering genetics from harsh climates. Lower THC, higher CBD, often used for breeding resilience.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strain Recommendation Tool -->
+    <section class="recommendation-tool" id="recommendation">
+        <h2 class="section-title">Strain Recommender</h2>
+        <p style="text-align: center; margin-bottom: 30px; opacity: 0.9;">Select the effects you desire to find your perfect match:</p>
+        
+        <div class="effects-container">
+            <button class="effect-btn" data-type="sativa">Energetic</button>
+            <button class="effect-btn" data-type="indica">Relaxed</button>
+            <button class="effect-btn" data-type="sativa">Creative</button>
+            <button class="effect-btn" data-type="indica">Sleepy</button>
+            <button class="effect-btn" data-type="sativa">Focus</button>
+            <button class="effect-btn" data-type="indica">Calm</button>
+            <button class="effect-btn" data-type="sativa">Social</button>
+            <button class="effect-btn" data-type="indica">Body Relief</button>
+            <button class="effect-btn" data-type="hybrid">Balanced</button>
+            <button class="effect-btn" data-type="hybrid">Euphoric</button>
+        </div>
+
+        <div style="text-align: center;">
+            <button id="find-strain-btn" class="cta-button primary" style="display: inline-flex;">
+                <i class="fas fa-search"></i> Find Match
+            </button>
+        </div>
+
+        <div id="recommendation-result" class="recommendation-result">
+            <div class="leaf-visual" id="result-icon">
+                <i class="fas fa-cannabis"></i>
+            </div>
+            <h3 id="result-title" style="font-size: 2rem; margin-bottom: 15px; color: var(--accent);"></h3>
+            <p id="result-desc" style="font-size: 1.1rem; max-width: 600px; margin: 0 auto;"></p>
+        </div>
+    </section>
+
+    <!-- Terpene Wheel -->
+    <section class="terpene-section" id="terpenes">
+        <h2 class="section-title">Terpene Wheel</h2>
+        <p style="text-align: center; margin-bottom: 50px; opacity: 0.9;">Hover over the compounds to discover their aromas and effects:</p>
+        
+        <div class="terpene-wrapper">
+            <!-- Center Info -->
+            <div class="terpene-center" id="terp-center-display">
+                <i class="fas fa-fingerprint" style="font-size: 3rem; margin-bottom: 15px; color: var(--accent);"></i>
+                <h3 style="margin-bottom: 5px;">Terpenes</h3>
+                <p style="font-size: 0.9rem; opacity: 0.8;">The aromatic oils that color the cannabis experience.</p>
+            </div>
+
+            <!-- Wheel Items -->
+            <div class="terpene-item" style="--i:0; --total:6; color: #e67e22; border-color: #e67e22;" 
+                 data-name="Myrcene" 
+                 data-desc="Earthy, musky, fruity. The most common terpene. Promotes relaxation and sedation ('couch-lock')."
+                 data-icon="fa-cloud">
+                <i class="fas fa-cloud" style="font-size: 1.5rem; margin-bottom: 5px;"></i>
+                <span class="terp-label">Myrcene</span>
+            </div>
+
+            <div class="terpene-item" style="--i:1; --total:6; color: #f1c40f; border-color: #f1c40f;" 
+                 data-name="Limonene" 
+                 data-desc="Citrus, lemon, orange. Elevates mood and provides stress relief. Anti-anxiety and antidepressant properties."
+                 data-icon="fa-lemon">
+                <i class="fas fa-lemon" style="font-size: 1.5rem; margin-bottom: 5px;"></i>
+                <span class="terp-label">Limonene</span>
+            </div>
+
+            <div class="terpene-item" style="--i:2; --total:6; color: #2ecc71; border-color: #2ecc71;" 
+                 data-name="Pinene" 
+                 data-desc="Pine, rosemary. Promotes alertness and memory retention. Counteracts some THC side effects."
+                 data-icon="fa-tree">
+                <i class="fas fa-tree" style="font-size: 1.5rem; margin-bottom: 5px;"></i>
+                <span class="terp-label">Pinene</span>
+            </div>
+
+            <div class="terpene-item" style="--i:3; --total:6; color: #e74c3c; border-color: #e74c3c;" 
+                 data-name="Caryophyllene" 
+                 data-desc="Peppery, spicy, cloves. The only terpene that acts as a cannabinoid (CB2). Pain relief and anti-inflammatory."
+                 data-icon="fa-pepper-hot">
+                <i class="fas fa-pepper-hot" style="font-size: 1.5rem; margin-bottom: 5px;"></i>
+                <span class="terp-label">Caryophyllene</span>
+            </div>
+
+            <div class="terpene-item" style="--i:4; --total:6; color: #9b59b6; border-color: #9b59b6;" 
+                 data-name="Linalool" 
+                 data-desc="Floral, lavender. deeply relaxing and calming. Used for anxiety, insomnia, and pain."
+                 data-icon="fa-spa">
+                <i class="fas fa-spa" style="font-size: 1.5rem; margin-bottom: 5px;"></i>
+                <span class="terp-label">Linalool</span>
+            </div>
+
+            <div class="terpene-item" style="--i:5; --total:6; color: #795548; border-color: #795548;" 
+                 data-name="Humulene" 
+                 data-desc="Earthy, woody, hops. Suppresses appetite (unlike most cannabis). Anti-inflammatory and antibacterial."
+                 data-icon="fa-beer">
+                <i class="fas fa-beer" style="font-size: 1.5rem; margin-bottom: 5px;"></i>
+                <span class="terp-label">Humulene</span>
+            </div>
+        </div>
+    </section>
+
     <!-- Integration Benefits -->
     <section class="integration" id="integration">
         <h2 class="section-title">Framework Integration Benefits</h2>
@@ -1025,6 +1551,16 @@
         </div>
     </section>
     
+    <!-- Type Details Modal -->
+    <div class="modal-overlay" id="type-modal">
+        <div class="modal-container">
+            <button class="modal-close" id="modal-close-btn">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-body" id="modal-body-content"></div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer>
         <div class="logo" style="justify-content: center; margin-bottom: 20px;">
@@ -1051,6 +1587,8 @@
         </p>
     </footer>
     
+    <!-- Import Manifest -->
+    <script src="manifest.js"></script>
     <script>
                 // Floating Chemical Symbols (THC, CBD, CBG, CBN, CBC, etc.)
                 document.addEventListener('DOMContentLoaded', function () {
@@ -1288,6 +1826,206 @@
             
             window.addEventListener('scroll', handleNavScroll);
             handleNavScroll(); // Initialize on load
+        });
+
+        // Recommendation Tool Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const effectBtns = document.querySelectorAll('.effect-btn');
+            const findBtn = document.getElementById('find-strain-btn');
+            const resultContainer = document.getElementById('recommendation-result');
+            const resultTitle = document.getElementById('result-title');
+            const resultDesc = document.getElementById('result-desc');
+            const resultIconContainer = document.getElementById('result-icon');
+
+            effectBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    btn.classList.toggle('selected');
+                });
+            });
+
+            if(findBtn) {
+                findBtn.addEventListener('click', () => {
+                    const selected = document.querySelectorAll('.effect-btn.selected');
+                    if (selected.length === 0) {
+                        alert('Please select at least one effect.');
+                        return;
+                    }
+
+                    let scores = { sativa: 0, indica: 0, hybrid: 0 };
+
+                    selected.forEach(btn => {
+                        const type = btn.getAttribute('data-type');
+                        if (type) scores[type]++;
+                    });
+
+                    // Logic: If mix is balanced, boost hybrid
+                    if (Math.abs(scores.sativa - scores.indica) <= 1 && (scores.sativa > 0 || scores.indica > 0)) {
+                        scores.hybrid += 2; 
+                    }
+
+                    let winner = 'hybrid';
+                    if (scores.sativa > scores.indica && scores.sativa >= scores.hybrid) winner = 'sativa';
+                    else if (scores.indica > scores.sativa && scores.indica >= scores.hybrid) winner = 'indica';
+                    
+                    resultContainer.style.display = 'block';
+                    resultIconContainer.style.transform = 'none';
+                    
+                    if (winner === 'sativa') {
+                        resultTitle.textContent = 'Recommended: Sativa';
+                        resultDesc.textContent = 'Based on your desire for energy, creativity, or focus, a Sativa strain is your best match. These strains are great for daytime use.';
+                        resultIconContainer.style.color = '#f1c40f';
+                        resultIconContainer.style.transform = 'scale(0.85, 1.2)';
+                    } else if (winner === 'indica') {
+                        resultTitle.textContent = 'Recommended: Indica';
+                        resultDesc.textContent = 'Based on your preference for relaxation, sleep, or calm, an Indica strain is ideal. These are perfect for evening use to unwind.';
+                        resultIconContainer.style.color = '#9b59b6';
+                        resultIconContainer.style.transform = 'scale(1.2, 0.9)';
+                    } else {
+                        resultTitle.textContent = 'Recommended: Hybrid';
+                        resultDesc.textContent = 'Your preferences are balanced or specifically seek a mix of effects. A Hybrid strain offers the best of both worlds.';
+                        resultIconContainer.style.color = '#2ecc71';
+                    }
+                    
+                    resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                });
+            }
+        });
+
+        // Terpene Wheel Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const terpItems = document.querySelectorAll('.terpene-item');
+            const centerDisplay = document.getElementById('terp-center-display');
+            const defaultContent = centerDisplay.innerHTML;
+            const defaultBorder = centerDisplay.style.borderColor;
+
+            terpItems.forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    const name = item.getAttribute('data-name');
+                    const desc = item.getAttribute('data-desc');
+                    const iconClass = item.getAttribute('data-icon');
+                    const color = item.style.color;
+
+                    centerDisplay.style.borderColor = color;
+                    centerDisplay.innerHTML =
+                        '<i class="fas ' + iconClass + '" style="font-size: 3rem; margin-bottom: 15px; color: ' + color + '; animation: fadeIn 0.3s;"></i>' +
+                        '<h3 style="margin-bottom: 5px; color: ' + color + ';">' + name + '</h3>' +
+                        '<p style="font-size: 0.9rem; opacity: 0.9;">' + desc + '</p>';
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    // Optional: Reset on mouse leave, or keep last selected
+                    // centerDisplay.innerHTML = defaultContent;
+                    // centerDisplay.style.borderColor = '#2ecc71';
+                });
+            });
+        });
+
+        // Modal Logic for Cannabis Types
+        document.addEventListener('DOMContentLoaded', function() {
+            const typeCards = document.querySelectorAll('.type-card');
+            const modal = document.getElementById('type-modal');
+            const modalBody = document.getElementById('modal-body-content');
+            const closeBtn = document.getElementById('modal-close-btn');
+
+            typeCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const type = card.getAttribute('data-type');
+                    if (type && cannabisManifest[type]) {
+                        renderModalContent(type);
+                        modal.classList.add('active');
+                        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                    }
+                });
+            });
+
+            function renderModalContent(type) {
+                const data = cannabisManifest[type];
+                const theme = data.theme;
+                
+                // Set CSS variables for the modal scope
+                modalBody.style.setProperty('--modal-primary', theme.primary);
+                modalBody.style.setProperty('--modal-secondary', theme.secondary);
+                modalBody.style.setProperty('--modal-accent', theme.accent);
+                modalBody.style.setProperty('--modal-gradient', `linear-gradient(135deg, ${theme.primary}, ${theme.secondary})`);
+
+                // Build HTML
+                let tabsHtml = data.tabs.map((tab, index) => 
+                    `<button class="modal-tab-btn ${index === 0 ? 'active' : ''}" data-tab="${tab.id}">
+                        <i class="fas ${tab.icon}"></i> ${tab.label}
+                    </button>`
+                ).join('');
+
+                let contentHtml = data.tabs.map((tab, index) => 
+                    `<div class="tab-content" id="tab-${tab.id}" style="display: ${index === 0 ? 'block' : 'none'}; animation: fadeIn 0.3s;">
+                        ${tab.content}
+                    </div>`
+                ).join('');
+
+                modalBody.innerHTML = `
+                    <div class="modal-content-wrapper">
+                        <div class="modal-header-dynamic">
+                            <h1>${data.title}</h1>
+                            <p style="opacity: 0.9;">${data.tagline}</p>
+                        </div>
+                        <div class="modal-tabs">${tabsHtml}</div>
+                        <div class="modal-content-area">${contentHtml}</div>
+                    </div>
+                `;
+
+                // Add Tab Logic
+                const tabBtns = modalBody.querySelectorAll('.modal-tab-btn');
+                tabBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        // Deactivate all
+                        tabBtns.forEach(b => b.classList.remove('active'));
+                        modalBody.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+                        
+                        // Activate clicked
+                        btn.classList.add('active');
+                        document.getElementById(`tab-${btn.dataset.tab}`).style.display = 'block';
+                    });
+                });
+
+                // Initialize Hybrid Slider if present
+                const slider = document.getElementById('hybridSlider');
+                if(slider) {
+                    initHybridSlider(slider);
+                }
+            }
+
+            function closeModal() {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            closeBtn.addEventListener('click', closeModal);
+            
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+
+            // Helper for Hybrid Slider logic
+            function initHybridSlider(slider) {
+                slider.addEventListener('input', function() {
+                    const val = this.value;
+                    const visual = document.getElementById('hybridVisual');
+                    const indica = visual.querySelector('.indica-portion');
+                    const sativa = visual.querySelector('.sativa-portion');
+                    
+                    let iWidth = 50, sWidth = 50;
+                    if(val <= 40) { iWidth = Math.max(60, 100-val); sWidth = 100-iWidth; }
+                    else if(val >= 60) { sWidth = Math.max(60, val); iWidth = 100-sWidth; }
+                    else { iWidth = 50; sWidth = 50; }
+
+                    indica.style.width = iWidth + '%';
+                    sativa.style.width = sWidth + '%';
+                    
+                    indica.textContent = iWidth > 55 ? `Indica ${Math.round(iWidth)}%` : '';
+                    sativa.textContent = sWidth > 55 ? `Sativa ${Math.round(sWidth)}%` : '';
+                    
+                    if(iWidth === 50) { indica.textContent = 'Indica 50%'; sativa.textContent = 'Sativa 50%'; }
+                });
+            }
         });
     </script>
 </body>
